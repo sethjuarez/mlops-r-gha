@@ -67,7 +67,7 @@ aks_config <- aks_webservice_deployment_config(
                   enable_app_insights = TRUE)
 
 aks_service <- deploy_model(ws, 
-                        'accidents', 
+                        'accidents-gha', 
                         list(model), 
                         inference_config, 
                         aks_config)
@@ -76,5 +76,5 @@ wait_for_deployment(aks_service, show_output = TRUE)
 cat("Model deployed.\n")
 
 ## Save endpoint for file for use when run on Shiny server
-accident.endpoint <- get_webservice(ws,   "accidents")$scoring_uri
+accident.endpoint <- get_webservice(ws,   "accidents-gha")$scoring_uri
 saveRDS(accident.endpoint, "~/endpoint.Rd")
