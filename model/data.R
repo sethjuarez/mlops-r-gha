@@ -55,4 +55,3 @@ upload_files_to_datastore(ds,
                           list("./accidents.Rd"),
                           target_path = target_path,
                           overwrite = TRUE)
-
