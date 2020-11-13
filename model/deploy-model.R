@@ -55,17 +55,26 @@ inference_config <- inference_config(
   source_directory = ".",
   environment = r_env)
 
-aci_config <- aci_webservice_deployment_config(cpu_cores = 1, memory_gb = 0.5)
+## aci_config <- aci_webservice_deployment_config(cpu_cores = 1, memory_gb = 0.5)
 
-aci_service <- deploy_model(ws, 
-                        'accidents-gha', 
+aks_config <- aks_webservice_deployment_config(
+                  autoscale_enabled = TRUE, 
+                  autoscale_min_replicas = 1,
+                  autoscale_max_replicas = 3,
+                  auth_enabled = FALSE, 
+                  cpu_cores = 1, 
+                  memory_gb = 0.5, 
+                  enable_app_insights = TRUE)
+
+aks_service <- deploy_model(ws, 
+                        'accidents', 
                         list(model), 
                         inference_config, 
-                        aci_config)
-wait_for_deployment(aci_service, show_output = TRUE)
+                        aks_config)
+wait_for_deployment(aks_service, show_output = TRUE)
 
 cat("Model deployed.\n")
 
 ## Save endpoint for file for use when run on Shiny server
-accident.endpoint <- get_webservice(ws,   "accidents-gha")$scoring_uri
+accident.endpoint <- get_webservice(ws,   "accidents")$scoring_uri
 saveRDS(accident.endpoint, "~/endpoint.Rd")
