@@ -66,12 +66,14 @@ aks_config <- aks_webservice_deployment_config(
                   memory_gb = 0.5, 
                   enable_app_insights = TRUE)
 
+compute_target <- get_compute(ws, cluster_name = 'sauron')
+
 aks_service <- deploy_model(ws, 
                         'accidents-gha', 
                         list(model), 
                         inference_config, 
                         aks_config,
-                        'sauron')
+                        compute_target)
 wait_for_deployment(aks_service, show_output = TRUE)
 
 cat("Model deployed.\n")
