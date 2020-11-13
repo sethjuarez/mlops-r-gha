@@ -70,7 +70,8 @@ aks_service <- deploy_model(ws,
                         'accidents-gha', 
                         list(model), 
                         inference_config, 
-                        aks_config)
+                        aks_config,
+                        'sauron')
 wait_for_deployment(aks_service, show_output = TRUE)
 
 cat("Model deployed.\n")
