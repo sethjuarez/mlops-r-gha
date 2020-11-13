@@ -40,11 +40,11 @@ model <- register_model(ws,
 cat("Model registered.\n")
 
 ## Delete the existing webservice, if it exists
-#cat("If this is your first deploy, ignore any WebServiceNotFound error that follows.\n")
-#try({
-#    old_service <- get_webservice(ws, 'accidents-gha')
-#    delete_webservice(old_service)
-#})
+cat("If this is your first deploy, ignore any WebServiceNotFound error that follows.\n")
+try({
+    old_service <- get_webservice(ws, 'accidents-gha')
+    delete_webservice(old_service)
+})
 
 ## Deploy the updated model
 
